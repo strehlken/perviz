@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Perviz Andrews Problem</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF7F2;
+  --text: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --accent: #8B4513;
+  --accent-light: #C4956A;
+  --border: #d4c9b8;
+  --card-bg: #FFFFFF;
+  --tab-active: #1a1a1a;
+  --tab-inactive: #8a8070;
+  --highlight: #FFF8E7;
+  --confirmed: #2d6a2e;
+  --unproven: #b8860b;
+  --next: #1a4a7a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 19px; }
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  min-height: 100vh;
+}
+.header {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 30px 20px;
+}
+.header h1 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.header .dateline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--tab-inactive);
+}
+.tab-bar {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 30px;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-bar button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tab-inactive);
+  background: none;
+  border: none;
+  padding: 14px 20px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+  letter-spacing: 0.02em;
+}
+.tab-bar button:hover { color: var(--text); }
+.tab-bar button.active {
+  color: var(--tab-active);
+  border-bottom-color: var(--accent);
+}
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 30px 80px;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: var(--text);
+  line-height: 1.3;
+}
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 36px 0 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+p { margin-bottom: 18px; }
+.source-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.source-tag.census { background: #4a6741; }
+.source-tag.marriage { background: #6a4a7a; }
+.source-tag.obit { background: #7a4a4a; }
+.source-tag.baptism { background: #4a5a7a; }
+.source-tag.death-cert { background: #5a5a5a; }
+.fact-card {
+  background: var(--card-bg);
+  border-left: 4px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.fact-card.confirmed { border-left-color: var(--confirmed); }
+.fact-card.unproven { border-left-color: var(--unproven); }
+.fact-card.next-step { border-left-color: var(--next); }
+.fact-card .label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.fact-card.confirmed .label { color: var(--confirmed); }
+.fact-card.unproven .label { color: var(--unproven); }
+.fact-card.next-step .label { color: var(--next); }
+.timeline-container {
+  position: relative;
+  padding: 20px 0;
+}
+.timeline-track {
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr;
+  gap: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.timeline-track .year-cell {
+  font-weight: 700;
+  color: var(--accent);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.timeline-track .person-header {
+  font-weight: 700;
+  color: var(--text);
+  padding: 10px 16px;
+  background: var(--card-bg);
+  border-bottom: 2px solid var(--accent);
+  font-size: 0.95rem;
+  text-align: center;
+}
+.timeline-track .event-cell {
+  padding: 10px 16px;
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid var(--border);
+}
+.timeline-track .event-cell:empty {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    #f5f2ed 8px,
+    #f5f2ed 9px
+  );
+}
+.timeline-track .event-cell .evt {
+  background: var(--highlight);
+  padding: 4px 8px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.doc-placeholder {
+  background: var(--card-bg);
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 30px 20px;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--tab-inactive);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.doc-placeholder .doc-icon {
+  font-size: 2rem;
+  opacity: 0.4;
+}
+.doc-placeholder .doc-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+ol, ul { margin: 0 0 18px 24px; }
+li { margin-bottom: 10px; }
+strong { font-weight: 600; }
+em { font-style: italic; }
+.separator {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+.pull-quote {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--accent);
+  border-left: 3px solid var(--accent-light);
+  padding: 8px 0 8px 24px;
+  margin: 30px 0;
+  line-height: 1.6;
+}
+@media (max-width: 700px) {
+  html { font-size: 17px; }
+  .header h1 { font-size: 2rem; }
+  .tab-bar button { padding: 12px 14px; font-size: 0.78rem; }
+  .timeline-track { grid-template-columns: 80px 1fr 1fr; font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="subtitle">A Genealogical Investigation</div>
+  <h1>The Perviz Andrews Problem</h1>
+  <div class="dateline">Research conducted March 27, 2026 — Document version 1.0</div>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="active" data-tab="mystery">The Mystery</button>
+  <button data-tab="known">What Was Known</button>
+  <button data-tab="found">What We Found</button>
+  <button data-tab="timelines">Parallel Timelines</button>
+  <button data-tab="unproven">Unproven Connections</button>
+  <button data-tab="next">Next Steps</button>
+  <button data-tab="sources">Source Documents</button>
+</div>
+
+<div class="content">
+
+<!-- ============================================================ -->
+<!-- TAB: THE MYSTERY -->
+<!-- ============================================================ -->
+<div class="tab-panel active" id="mystery">
+<h2>Who Was Perviz Andrews?</h2>
+
+<p>The tombstone in Marshall County, Indiana, reads <strong>Perviz</strong>. Census takers wrote it as Parvis, Pervis, or simply P. It is a Persian name meaning "victorious" — wildly unusual for a Vermont-born tradesman in the early nineteenth century. The name's rarity is both the central frustration and the greatest asset in this research: there are almost no other Perviz Andrews entries in the historical record, but when one appears, it can only be him.</p>
+
+<p>Perviz Andrews was born in 1802 in Bennington, Vermont. He was a tailor. He married a woman named Julia Odell — or possibly Julia C. something-else — from Troy, New York. They had two children in the 1840s: George W. Andrews and Cynthia Ann Andrews. The family moved to a small town in Indiana. Perviz died before July 1856, possibly of typhoid. Julia then married a local widower, and they named their first son Perviz, after her late husband.</p>
+
+<p>That was the sum total of what was known. Nothing about Perviz's parents, his siblings, or his early life. Nothing about Julia's maiden name or parents. Nothing connecting this family to anyone who came before them.</p>
+
+<div class="pull-quote">Two questions drive this investigation: Who were the parents of Perviz Andrews? And who was Julia Odell before she married him?</div>
+
+<p>This document records the findings of a single evening's intensive research — combining primary source documents, census records, marriage certificates, obituaries, church records, and county histories — that cracked several of these dead ends open and identified clear paths for further work.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: WHAT WAS KNOWN -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="known">
+<h2>The Starting Facts</h2>
+
+<p>Before this research session, the following facts were established through family knowledge and prior investigation:</p>
+
+<h3>Perviz Andrews</h3>
+<ul>
+  <li>Born <strong>1802</strong> in <strong>Bennington, Vermont</strong></li>
+  <li>Occupation: <strong>tailor</strong></li>
+  <li>Tombstone spells his name <strong>Perviz</strong>; census records vary (Parvis, Pervis)</li>
+  <li>Married <strong>Julia Odell</strong> (or O'Dell), born approximately 1818 in Troy, New York</li>
+  <li>The marriage likely occurred in the early 1840s</li>
+  <li>Children: <strong>George W. Andrews</strong> (b. ~1846) and <strong>Cynthia Ann Andrews</strong> (b. ~1844)</li>
+  <li>The family moved to Indiana — specific location unknown</li>
+  <li>Perviz died approximately 1856, possibly of typhoid or similar illness</li>
+  <li>Julia's middle initial was <strong>C</strong>; family speculation was that C might represent her true maiden name, with Odell being a prior married name</li>
+</ul>
+
+<h3>After Perviz's Death</h3>
+<ul>
+  <li>Julia married a local widower who already had children</li>
+  <li>They named their first son together <strong>Perviz</strong>, after her late husband</li>
+  <li>The family moved to Kansas</li>
+  <li>George W. Andrews, as a grown man, also went to Kansas</li>
+  <li>George married <strong>Hortense White</strong>, whose family came from Michigan</li>
+  <li>Their daughter was <strong>Nelly Andrews</strong></li>
+</ul>
+
+<h3>Prior Research Attempts</h3>
+<ul>
+  <li>Correspondence with Odell researchers, including a contact in Virginia — no connections found</li>
+  <li>No records found for the Andrews family in the Bennington, Vermont, or Troy, New York, areas</li>
+  <li>The unusual name "Perviz" had not been located in any other period documents</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: WHAT WE FOUND -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="found">
+<h2>What We Established</h2>
+
+<h3>The Location: Marshall County, Indiana</h3>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Marriage Record</div>
+  <p><strong>Julia C. Andrews</strong> married <strong>Jonas Fulmer</strong> on <strong>July 10, 1856</strong>, in Marshall County, Indiana. Recorded in Marriage Book A, page 105. <span class="source-tag marriage">Marriage Cert</span></p>
+  <p>This establishes that Perviz died before this date, and that the family was in Marshall County. Julia used her Andrews married name with the middle initial C.</p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Obituary</div>
+  <p><strong>Jonas Fulmer</strong> was born May 16, 1812, in Herkimer County, New York. He married first wife Sarah Ann Vanhorn on February 9, 1834. He moved to St. Joseph County, Indiana, in 1838, then to Marshall County ~1839. Sarah Ann died there. He then married Julia (Andrews). Jonas died <strong>March 1, 1880</strong>. Buried North Liberty Cemetery. Survived by sons <strong>Marion</strong> and <strong>Parvis Fulmer</strong>, plus two sisters and four children total. <span class="source-tag obit">Concordia Republican, March 25, 1880</span></p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Marriage Record</div>
+  <p><strong>George W. Andrews</strong>, age 25, married <strong>Hortense White</strong>, age 21, on <strong>December 4, 1871</strong>, in Manhattan, Kansas. Recorded in Cloud County marriage records. This places George's birth at ~1846. <span class="source-tag marriage">Cloud County KS</span></p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Ancestry User Tree</div>
+  <p><strong>Cynthia Ann Fulmer</strong> (née Andrews), born January 18, 1844, Indiana. Died December 17, 1914, in Yamhill, Oregon. Married Ezra Hayes. Listed as daughter of Jonas Fulmer and Julia C. Andrews — though she was born before the Fulmer marriage and was Perviz's biological daughter.</p>
+</div>
+
+<h3>The Andrews Clan in Marshall County</h3>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — 1850 Census</div>
+  <p><strong>Lyman H. Andrews</strong>, age 44, Wagon maker, $500 real estate, born New York. Household includes Mary J. Andrews (19), Sarah Andrews (20), Milton Andrews (14), Charles Andrews (12), Ellen Andrews (8). Dwelling 490, Marshall County, 1850 Federal Census. <span class="source-tag census">1850 Census</span></p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — 1850 Census</div>
+  <p><strong>Daniel Andrews</strong>, age 50, Farmer, $400, born New York. Household includes Susan (30, Pennsylvania), Charles (14, Ohio), John (11), Mary L. (9), Lucy C. (4), California (2, Indiana). Dwelling 85, Marshall County. <span class="source-tag census">1850 Census</span></p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — FamilySearch Biography</div>
+  <p><strong>Daniel Andrews is eliminated as Perviz's relative.</strong> He was born January 10, 1810, in Cayuga, New York. His father was <strong>Robert Andrews</strong> (b. ~1793) and mother <strong>Persa</strong> (b. ~1793). Robert was only 9 years old when Perviz was born in 1802 — Daniel is from a separate Andrews family. <span class="source-tag">FamilySearch</span></p>
+</div>
+
+<h3>Lyman H. Andrews — Key Records</h3>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Death Certificate of Son Charles R. Andrews</div>
+  <p>Charles R. Andrews (March 25, 1838 – July 4, 1913), born Wyoming County, New York. The death certificate names his father as <strong>Lyman H. Andrews</strong>, birthplace <strong>Vermont</strong>, and his mother as <strong>Mary Jane Yeakley</strong>, birthplace New York. Informant was Frank M. Andrews. <span class="source-tag death-cert">IN Death Cert</span></p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Old Settlers Society, 1878</div>
+  <p>Lyman H. Andrews signed the Old Settlers Society roster in 1878, recording his <strong>year of settlement</strong> in Marshall County as <strong>1839</strong> and his place of birth as <strong>Rensselaer County, New York</strong>. <span class="source-tag">McDonald 1881</span></p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Road Hands Record</div>
+  <p>Lyman H. Andrews served as <strong>road supervisor, District 10, Center Township</strong>, Marshall County in 1842 and 1844. His road crew included <strong>Austin Fuller</strong> (who later officiated Andrews family marriages and served as county auditor) and <strong>William S. Yeckley</strong> (almost certainly related to his wife Mary Jane Yeakley). <span class="source-tag">County Treasurer Records</span></p>
+</div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — County Officers List</div>
+  <p>Lyman H. Andrews served as <strong>Coroner of Marshall County</strong> (date imprecise — records poorly kept for early coroners). <span class="source-tag">McDonald 1890</span></p>
+</div>
+
+<h3>The Camden Valley Baptism</h3>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Church Record</div>
+  <p>On <strong>July 30, 1843</strong>, at the Camden Valley Church of the United Brethren in <strong>Washington County, New York</strong>, a group of adults were baptized by minister E. Rondthaler Jr. Among those baptized: <strong>Perviz Andrews</strong>. <span class="source-tag baptism">Church Record</span></p>
+  <p>Washington County, NY, lies directly between Bennington, VT (Perviz's birthplace) and Troy, NY (Julia's reported birthplace). The Camden Valley area (White Creek / Cambridge) is approximately 20 miles from each. This places Perviz in exactly the right geography to have met and married Julia Odell in the early 1840s.</p>
+  <p>Other adults baptized the same day included members of the Harris, Gray, Bristol, and Smith families. Notably, <strong>Stephen Andrews married Lucretia Harris</strong> in Marshall County, Indiana, in 1863 — suggesting the Harris family may have migrated alongside the Andrews family from Washington County to Indiana.</p>
+</div>
+
+<h3>The Marriage Network in Marshall County</h3>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — Marriage Index</div>
+  <p>The Marshall County marriage records show a cluster of Andrews marriages in the 1850s:</p>
+  <ul>
+    <li><strong>Andrews, Lydia</strong> → Studebaker, Abraham W. — April 9, 1850</li>
+    <li><strong>Andrews, Sarah H.</strong> → Bailey, Jacob — February 20, 1851</li>
+    <li><strong>Andrews, Stephen</strong> → Harris, Lucretia — July 7, 1853</li>
+    <li><strong>Andrews, Julia C.</strong> → Fulmer, Jonas — July 10, 1856</li>
+    <li><strong>Andrews, Mary Luretta</strong> → Starkey, William — August 2, 1857</li>
+    <li><strong>Andrews, Susan</strong> → Stuckler, John — April 20, 1858</li>
+    <li><strong>Andrews, Ellen M.</strong> → Eisenhour, Benjamin F. — December 31, 1873</li>
+  </ul>
+  <p>Sarah, Milton, Charles, and Ellen from the 1850 census (Lyman's household) can be matched to several of these marriage entries. The Lydia Andrews–Studebaker marriage was officiated by <strong>Daniel Andrews, Minister of the Gospel</strong>. <span class="source-tag marriage">Marshall Co. Index</span></p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: PARALLEL TIMELINES -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="timelines">
+<h2>Parallel Timelines</h2>
+<p style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 30px;">Tracking the known movements of Perviz Andrews and Lyman H. Andrews through the available records.</p>
+
+<div class="timeline-container">
+<div class="timeline-track">
+  <div class="person-header">Year</div>
+  <div class="person-header">Perviz Andrews</div>
+  <div class="person-header">Lyman H. Andrews</div>
+
+  <div class="year-cell">1802</div>
+  <div class="event-cell"><span class="evt">Born, Bennington, VT</span></div>
+  <div class="event-cell"></div>
+
+  <div class="year-cell">~1806</div>
+  <div class="event-cell"></div>
+  <div class="event-cell"><span class="evt">Born, Rensselaer Co., NY (or VT per son's death cert)</span></div>
+
+  <div class="year-cell">1838</div>
+  <div class="event-cell"></div>
+  <div class="event-cell"><span class="evt">Son Charles born, Wyoming Co., NY (Mar). Marriage to Livvy Tinny in Pownal, VT (Jul) — <em>possibly different Lyman</em></span></div>
+
+  <div class="year-cell">1839</div>
+  <div class="event-cell"></div>
+  <div class="event-cell"><span class="evt">Settles Marshall Co., Indiana (Old Settlers record)</span></div>
+
+  <div class="year-cell">1842</div>
+  <div class="event-cell"></div>
+  <div class="event-cell"><span class="evt">Road supervisor, District 10, Center Twp., Marshall Co.</span></div>
+
+  <div class="year-cell">1843</div>
+  <div class="event-cell"><span class="evt">Adult baptism, Camden Valley Church, Washington Co., NY (Jul 30)</span></div>
+  <div class="event-cell"></div>
+
+  <div class="year-cell">~1844</div>
+  <div class="event-cell"><span class="evt">Daughter Cynthia Ann born, Indiana (Jan 18)</span></div>
+  <div class="event-cell"><span class="evt">Road supervisor again, District 10</span></div>
+
+  <div class="year-cell">~1846</div>
+  <div class="event-cell"><span class="evt">Son George W. born, Indiana</span></div>
+  <div class="event-cell"></div>
+
+  <div class="year-cell">1850</div>
+  <div class="event-cell"><span class="evt">Should appear in Marshall Co. census — <em>not yet located</em></span></div>
+  <div class="event-cell"><span class="evt">1850 Census: age 44, wagon maker, Marshall Co.</span></div>
+
+  <div class="year-cell">~1856</div>
+  <div class="event-cell"><span class="evt">Dies, Marshall Co., before July 10</span></div>
+  <div class="event-cell"></div>
+
+  <div class="year-cell">1856</div>
+  <div class="event-cell"><span class="evt">Widow Julia marries Jonas Fulmer (Jul 10)</span></div>
+  <div class="event-cell"></div>
+
+  <div class="year-cell">1871</div>
+  <div class="event-cell"><span class="evt">Son George marries Hortense White, Cloud Co., KS (Dec 4)</span></div>
+  <div class="event-cell"></div>
+
+  <div class="year-cell">1878</div>
+  <div class="event-cell"></div>
+  <div class="event-cell"><span class="evt">Signs Old Settlers Society roster; birthplace Rensselaer Co., NY</span></div>
+
+  <div class="year-cell">1880</div>
+  <div class="event-cell"><span class="evt">Jonas Fulmer dies, Mar 1; Parvis Fulmer named as surviving son</span></div>
+  <div class="event-cell"></div>
+</div>
+</div>
+
+<p style="margin-top: 30px;"><em>Note: Cynthia Ann Andrews (b. 1844) was listed on Ancestry user trees with birthdate January 18, 1844 in Indiana — meaning Perviz and Julia were already in Indiana by early 1844. Yet Perviz was baptized in Washington County, NY, in July 1843. The family likely moved to Indiana in the second half of 1843 or very early 1844.</em></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: UNPROVEN CONNECTIONS -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="unproven">
+<h2>What Remains Unproven</h2>
+
+<div class="fact-card unproven">
+  <div class="label">Unproven — The Perviz–Lyman Relationship</div>
+  <p>Both Perviz Andrews (b. 1802, Bennington, VT) and Lyman H. Andrews (b. ~1806, Rensselaer Co., NY / VT) ended up in Marshall County, Indiana, and both come from the Vermont–New York border region. The circumstantial case for a family relationship is real but not documented. Complicating factors:</p>
+  <ul>
+    <li>Perviz reported his birthplace as Vermont; Lyman's was recorded as both Rensselaer County, NY (Old Settlers) and Vermont (son's death certificate)</li>
+    <li>A "Lyman Andrews" married Livvy Tinny in Pownal, Bennington Co., VT, in July 1838 — but this may be a <strong>different Lyman Andrews</strong>. Marshall County Lyman's son Charles was born in March 1838 in Wyoming County, NY, to Mary Jane Yeakley, not Livvy Tinny. The timing and geography create a disconnect.</li>
+    <li>No shared household on any known census, no probate record, no family bible, and no document explicitly names them as relatives</li>
+  </ul>
+</div>
+
+<div class="fact-card unproven">
+  <div class="label">Unproven — Julia's Maiden Name and Origins</div>
+  <p>Julia is consistently identified as "Julia C. Andrews" in Indiana records. "Odell" is the family-reported maiden name, but no marriage record for Perviz Andrews and Julia Odell has been located. Possibilities:</p>
+  <ul>
+    <li>Odell was her true maiden name, with "C" as a middle initial</li>
+    <li>Odell was a prior married name, and "C" represents her actual maiden surname</li>
+    <li>The Perviz baptism in Washington County, NY (1843), places him between Troy and Bennington — the right geography for him to have met Julia. But her specific origin and parentage remain unknown.</li>
+  </ul>
+</div>
+
+<div class="fact-card unproven">
+  <div class="label">Unproven — Perviz's Parents</div>
+  <p>Several Andrews families lived in Bennington County, Vermont, in the 1790s–1810s:</p>
+  <ul>
+    <li><strong>Isaac Andrews</strong> and <strong>John Andrews</strong> — Shaftsbury, 1800 census</li>
+    <li><strong>Ralph Andrews</strong> — Arlington, 1800 census</li>
+    <li><strong>Asa Andrews</strong> — Arlington, 1830 census. A Cynthia L. Andrews (b. ~1799, Arlington) named Asa Andrews as her father and Elizabeth as her mother when she married in 1859. If Cynthia is Perviz's sister, then Asa and Elizabeth are the parents. <strong>This is not proven.</strong></li>
+  </ul>
+  <p>No document yet found names Perviz's father or mother.</p>
+</div>
+
+<div class="fact-card unproven">
+  <div class="label">Unproven — Perviz on the 1850 Census</div>
+  <p>Perviz Andrews should appear on the 1850 Marshall County census with Julia and children George W. and Cynthia Ann. He has not been located. He may be listed under a mangled spelling of his first name (Purvis, Pervis, or even just P. Andrews), or he may be in an adjacent county or township not yet searched.</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: NEXT STEPS -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="next">
+<h2>Next Steps</h2>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 1 — Find Perviz on the 1850 Census</div>
+  <p>Search Marshall County and St. Joseph County, Indiana, 1850 Federal Census for any Andrews household headed by a male born ~1802 in Vermont, with wife born ~1818 in New York. Try spellings: Parvis, Pervis, Purvis, P. Andrews. Also search adjacent counties (Fulton, Starke, Elkhart). If found, the household will confirm Julia's birthplace, the children's ages, and Perviz's occupation and neighbors.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 2 — Search the Marshall County Democrat</div>
+  <p>The Plymouth newspaper is digitized from November 15, 1855, onward at <strong>Hoosier State Chronicles</strong> (newspapers.library.in.gov). Perviz died before July 1856. A death notice in this paper could give age, cause of death, and origin — details that would be unavailable elsewhere for this era. Search for "Andrews" in all 1856 issues.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 3 — Washington County, NY Marriage Records</div>
+  <p>Perviz was in Washington County in July 1843 (Camden Valley baptism). Cynthia Ann was born in Indiana in January 1844. If Perviz married Julia in Washington County, the marriage should fall between ~1841 and mid-1843. Search Washington County marriage records for Andrews–Odell or Andrews–[C surname] in that window.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 4 — Camden Valley Church Records</div>
+  <p>The Camden Valley Church of the United Brethren records (Washington County, NY) contained the baptism. The full membership roll, marriage register, and other records may contain more Andrews entries, or Odell/O'Dell entries. Contact the <strong>Washington County Historian</strong> or check for additional digitized records on the county's DocumentCenter.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 5 — Trace the Harris Family</div>
+  <p>Amos Harris and family members were baptized alongside Perviz in 1843 in Washington County. Stephen Andrews married Lucretia Harris in Marshall County in 1863 (officiated by Austin Fuller). If the Harris families in both locations are the same, this documents a group migration from Washington County to Indiana and connects the Andrews families. Search for Harris households in both locations.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 6 — 1810/1820 Census, Bennington County & Rensselaer County</div>
+  <p>Search for Andrews households in Bennington, Pownal, Shaftsbury, and Arlington (Bennington County, VT) and Hoosick, Petersburg, and White Creek (Rensselaer County, NY) in the 1810 and 1820 censuses. Look for a household with boys in the age brackets matching Perviz (b. 1802) and potentially Lyman (b. ~1806). These censuses record only tick marks, not names, but the right household composition could identify the father.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 7 — Resolve the Lyman Andrews Identity</div>
+  <p>Determine whether the Lyman Andrews who married Livvy Tinny in Pownal, VT (July 1838) is the same Lyman H. Andrews of Marshall County, Indiana. Key conflict: son Charles was born March 1838 in Wyoming County, NY, to mother Mary Jane Yeakley — four months before the Pownal marriage. Possible explanations include Mary Jane dying and Lyman remarrying quickly, or two different Lyman Andrews. Search for Mary Jane Yeakley's death in Wyoming County, and check the original Pownal marriage register (not the index card).</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 8 — Studebaker Family Genealogy</div>
+  <p>"The Studebaker Family in America" is a multi-volume published genealogy at the Indiana State Library. Lydia Andrews married Abraham W. Studebaker in 1850, with Daniel Andrews officiating. This book likely discusses the Andrews connection and may contain information about which Andrews family Lydia belonged to.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 9 — 1908 Marshall County History, Volume 2</div>
+  <p>"A Twentieth Century History of Marshall County" by Daniel McDonald (1908) contains biographical sketches in Volume 2. A "B. M. Andrews [b. 1904]" appears in the biographical sketches collection at FamilySearch, with genealogical information tracing the father and grandfather. This could connect to the Andrews families in this research. Both volumes are free online at Internet Archive and FamilySearch Digital Library.</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: SOURCE DOCUMENTS -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="sources">
+<h2>Source Documents</h2>
+<p style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 30px;">Placeholder gallery for primary source images. Add images via VS Code by inserting <code>&lt;img&gt;</code> tags in the grid below.</p>
+
+<div class="doc-grid">
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Fulmer–Andrews Marriage</div>
+    <div>Marshall Co., July 10, 1856</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Jonas Fulmer Obituary</div>
+    <div>Concordia Republican, March 25, 1880</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">1850 Census — Lyman H. Andrews</div>
+    <div>Marshall Co., Dwelling 490</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">1850 Census — Daniel Andrews</div>
+    <div>Marshall Co., Dwelling 85</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Camden Valley Baptism Record</div>
+    <div>Washington Co., NY, July 30, 1843</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Charles R. Andrews Death Certificate</div>
+    <div>Marshall Co., July 4, 1913</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Charles R. Andrews Gravestone</div>
+    <div>Stringer Cemetery, Marshall Co.</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Stephen Andrews Marriage</div>
+    <div>Marshall Co., July 7, 1863</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Lydia Andrews–Studebaker Marriage</div>
+    <div>Marshall Co., April 9, 1850</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Lyman Andrews Marriage (Pownal)</div>
+    <div>Bennington Co., VT, July 23, 1838</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Cynthia L. Andrews Marriage (Bride)</div>
+    <div>Arlington, VT, January 1, 1859</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">1800 Census — Bennington/Shaftsbury</div>
+    <div>Isaac Andrews, John Andrews</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">1830 Census — Arlington</div>
+    <div>Asa Andrews, Laura Andrews</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Old Settlers Society Roster</div>
+    <div>Lyman H. Andrews, settled 1839</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">Road Hands Record</div>
+    <div>Lyman H. Andrews, supervisor 1842-44</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+  <div class="doc-placeholder">
+    <div class="doc-icon">📄</div>
+    <div class="doc-label">County Officers — Coroners List</div>
+    <div>Lyman H. Andrews listed</div>
+    <!-- <img src="path/to/image.jpg" style="width:100%;border-radius:4px;"> -->
+  </div>
+
+</div>
+
+<h3 style="margin-top: 40px;">Additional Uncategorized Documents</h3>
+<p style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text-secondary);">Add additional source images below as they are collected. Each image can be classified later.</p>
+
+<div class="doc-grid" id="uncategorized-docs">
+  <!-- Add additional images here:
+  <div class="doc-placeholder">
+    <img src="path/to/image.jpg" style="width:100%;border-radius:4px;">
+    <div class="doc-label">Description</div>
+    <div>Source / Date</div>
+  </div>
+  -->
+</div>
+
+</div>
+
+</div><!-- end .content -->
+
+<script>
+document.querySelectorAll('.tab-bar button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tab-bar').offsetTop - 10, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
