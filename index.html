@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Perviz Andrews Problem</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -250,6 +251,74 @@ em { font-style: italic; }
   margin: 30px 0;
   line-height: 1.6;
 }
+.research-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  margin: 20px 0 30px;
+}
+.research-table th {
+  background: #2C3E50;
+  color: #fff;
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.research-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e8e3db;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.research-table tr:nth-child(even) td {
+  background: #faf7f2;
+}
+.research-table a {
+  color: var(--next);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26, 74, 122, 0.3);
+}
+.research-table a:hover {
+  border-bottom-color: var(--next);
+}
+.new-data {
+  background: #FFF3CD;
+  border-left: 4px solid #FFC107;
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-radius: 0 6px 6px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+}
+.new-data .label {
+  font-weight: 700;
+  color: #856404;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  margin-bottom: 6px;
+}
+.conflict-note {
+  background: #FDE8E8;
+  border-left: 4px solid #DC3545;
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-radius: 0 6px 6px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+}
+.conflict-note .label {
+  font-weight: 700;
+  color: #721C24;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  margin-bottom: 6px;
+}
 @media (max-width: 700px) {
   html { font-size: 17px; }
   .header h1 { font-size: 2rem; }
@@ -274,6 +343,7 @@ em { font-style: italic; }
   <button data-tab="unproven">Unproven Connections</button>
   <button data-tab="next">Next Steps</button>
   <button data-tab="sources">Source Documents</button>
+  <button data-tab="db-research">Database Research</button>
 </div>
 
 <div class="content">
@@ -283,6 +353,13 @@ em { font-style: italic; }
 <!-- ============================================================ -->
 <div class="tab-panel active" id="mystery">
 <h2>Who Was Perviz Andrews?</h2>
+
+<div style="background: var(--card-bg); border: 2px solid var(--next); border-radius: 6px; padding: 16px 24px; margin-bottom: 30px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+  <div style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--next); margin-bottom: 8px;">Current Facts &amp; Links</div>
+  <ul style="margin: 0; padding: 0; list-style: none;">
+    <li style="margin-bottom: 6px;"><a href="#" onclick="document.querySelector('[data-tab=db-research]').click(); return false;" style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--next); text-decoration: none; border-bottom: 1px solid rgba(26,74,122,0.3);">FamilySearch &amp; Ancestry Database Research →</a></li>
+  </ul>
+</div>
 
 <p>The tombstone in Marshall County, Indiana, reads <strong>Perviz</strong>. Census takers wrote it as Parvis, Pervis, or simply P. It is a Persian name meaning "victorious" — wildly unusual for a Vermont-born tradesman in the early nineteenth century. The name's rarity is both the central frustration and the greatest asset in this research: there are almost no other Perviz Andrews entries in the historical record, but when one appears, it can only be him.</p>
 
@@ -323,6 +400,7 @@ em { font-style: italic; }
   <li>The family moved to Kansas</li>
   <li>George W. Andrews, as a grown man, also went to Kansas</li>
   <li>George married <strong>Hortense White</strong>, whose family came from Michigan</li>
+  <li>Cynthia E. Andrews married <strong>Orrin White</strong>, Hortense's brother. They lived in Northern California. Nellie visited Aunt Cynthia there by train from San Francisco.</li>
   <li>Their daughter was <strong>Nelly Andrews</strong></li>
 </ul>
 
@@ -358,9 +436,12 @@ em { font-style: italic; }
   <p><strong>George W. Andrews</strong>, age 25, married <strong>Hortense White</strong>, age 21, on <strong>December 4, 1871</strong>, in Manhattan, Kansas. Recorded in Cloud County marriage records. This places George's birth at ~1846. <span class="source-tag marriage">Cloud County KS</span></p>
 </div>
 
-<div class="fact-card confirmed">
-  <div class="label">Confirmed — Ancestry User Tree</div>
-  <p><strong>Cynthia Ann Fulmer</strong> (née Andrews), born January 18, 1844, Indiana. Died December 17, 1914, in Yamhill, Oregon. Married Ezra Hayes. Listed as daughter of Jonas Fulmer and Julia C. Andrews — though she was born before the Fulmer marriage and was Perviz's biological daughter.</p>
+<div class="fact-card unproven">
+  <div class="label">Corrected — Newspaper Evidence Overrides User Tree</div>
+  <p><strong>Cynthia E. Andrews</strong> (not "Cynthia Ann" as previously reported) was born approximately 1844–1845 in Indiana. She was Perviz's biological daughter. The Ancestry user tree claiming she married Ezra Hayes and died in Yamhill, Oregon, in 1914 is <strong>incorrect</strong> — newspaper clippings show her alive in Indiana in 1920.</p>
+  <p>Newspaper evidence documents her as <strong>Mrs. Cynthia E. White</strong> marrying Henry A. Adle of Walkerton, St. Joseph County, Indiana (undated clipping). A second clipping from the <strong>South Bend Tribune, November 9, 1920</strong> reports Mrs. Cynthia E. Adle of Walkerton marrying William H. LaFong of Noble County, Indiana. That article states this was <strong>"the fourth marriage for the woman. All the previous unions were ended by death."</strong></p>
+  <p>Her four husbands in sequence: (1) <strong>Orrin White</strong> (brother of Hortense White; lived in Northern California), (2) unknown, (3) Henry A. Adle, (4) William H. LaFong. She remained in the Walkerton / St. Joseph County area throughout her life. Her death record — likely in St. Joseph County or nearby, sometime after 1920 — could name her parents and resolve the question of Perviz's parentage.</p>
+  <p>The White connection is not a coincidence: Cynthia married <strong>Orrin White</strong>, brother of <strong>Hortense White</strong>, who married Cynthia's brother George W. Andrews. This was a <strong>double sibling marriage</strong>. Cynthia and Orrin lived in Northern California (Wheatland, Yuba City, or Red Bluff area). George and Hortense's daughter Nellie, living in San Francisco, visited Aunt Cynthia there by train. After Orrin's death, Cynthia returned to Indiana.</p>
 </div>
 
 <h3>The Andrews Clan in Marshall County</h3>
@@ -500,7 +581,7 @@ em { font-style: italic; }
 </div>
 </div>
 
-<p style="margin-top: 30px;"><em>Note: Cynthia Ann Andrews (b. 1844) was listed on Ancestry user trees with birthdate January 18, 1844 in Indiana — meaning Perviz and Julia were already in Indiana by early 1844. Yet Perviz was baptized in Washington County, NY, in July 1843. The family likely moved to Indiana in the second half of 1843 or very early 1844.</em></p>
+<p style="margin-top: 30px;"><em>Note: Cynthia's middle initial is consistently recorded as "E" in newspaper sources, not "Ann" as stated in Ancestry user trees. She married at least four times (all husbands predeceased her) and remained in the Walkerton / St. Joseph County, Indiana area. She was alive as of November 1920 (South Bend Tribune, November 9, 1920). The Ancestry tree data claiming she died in Yamhill, Oregon in 1914 is demonstrably incorrect.</em></p>
 </div>
 
 <!-- ============================================================ -->
@@ -544,6 +625,11 @@ em { font-style: italic; }
   <div class="label">Unproven — Perviz on the 1850 Census</div>
   <p>Perviz Andrews should appear on the 1850 Marshall County census with Julia and children George W. and Cynthia Ann. He has not been located. He may be listed under a mangled spelling of his first name (Purvis, Pervis, or even just P. Andrews), or he may be in an adjacent county or township not yet searched.</p>
 </div>
+
+<div class="fact-card confirmed">
+  <div class="label">Confirmed — White Family Connection</div>
+  <p>Per family knowledge: Cynthia E. Andrews married <strong>Orrin White</strong>, brother of <strong>Hortense White</strong> who married Cynthia's brother George W. Andrews. Double sibling marriage. The White family came from Michigan. Cynthia and Orrin lived in Northern California; Nellie visited by train from San Francisco.</p>
+</div>
 </div>
 
 <!-- ============================================================ -->
@@ -560,6 +646,11 @@ em { font-style: italic; }
 <div class="fact-card next-step">
   <div class="label">Priority 2 — Search the Marshall County Democrat</div>
   <p>The Plymouth newspaper is digitized from November 15, 1855, onward at <strong>Hoosier State Chronicles</strong> (newspapers.library.in.gov). Perviz died before July 1856. A death notice in this paper could give age, cause of death, and origin — details that would be unavailable elsewhere for this era. Search for "Andrews" in all 1856 issues.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Priority 2B — Find Cynthia E. Andrews/LaFong Death Record</div>
+  <p>Cynthia E. Andrews married four times, last known as Mrs. William H. LaFong, residing in Walkerton, St. Joseph County, Indiana, as of November 1920. Her death record — search St. Joseph, Marshall, Noble, and LaPorte counties for a Cynthia LaFong dying after 1920 — would name her <strong>parents</strong>. This is potentially the fastest route to identifying Perviz's father and mother, since Indiana death certificates from this era typically include parents' names. Note: the surname of her third husband is believed to be <strong>Adle</strong>, not Able.</p>
 </div>
 
 <div class="fact-card next-step">
@@ -732,6 +823,218 @@ em { font-style: italic; }
     <div>Source / Date</div>
   </div>
   -->
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB: DATABASE RESEARCH -->
+<!-- ============================================================ -->
+<div class="tab-panel" id="db-research">
+<h2>FamilySearch &amp; Ancestry Database Research</h2>
+<p style="font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Compiled from a separate automated search session using FamilySearch.org and Ancestry.com databases, March 2026. This data should be cross-referenced with the primary source documents found during manual research.</p>
+
+<div class="new-data">
+  <div class="label">New Data — Not Previously Known</div>
+  <p>This database search surfaced several records not found during the manual research session, including a 1840 census hit for Perviz in Chautauqua County, NY, a <strong>1850 census in Salem, Washington County, NY</strong> (consistent with his 1843 baptism in the same county), a specific death date of <strong>April 11, 1856</strong>, a FamilySearch person ID (<strong>L89S-H9W</strong>), and Genesee County, NY land records for Lyman.</p>
+</div>
+
+<div class="conflict-note">
+  <div class="label">Data Conflicts to Resolve</div>
+  <p>The 1850 census from this search lists Perviz in <strong>Salem, Washington County, New York</strong> — not in Indiana. Yet Cynthia Ann Andrews was reportedly born January 18, 1844 in Indiana (per Ancestry user trees). If the 1850 census hit is correct, the family may have returned to New York from Indiana, or the 1844 Indiana birth is inaccurate. Also: the children's birth years in this census (George age 3 = ~1847; Cynthia age 1 = ~1849) differ from what was previously assumed (~1846 and ~1844). <strong>The original census image should be examined to verify.</strong></p>
+  <p style="margin-top: 10px;">Additionally, the database search lists Perviz's birthplace as sometimes New York rather than Vermont. The 1850 census indexed entry says "born New York." This conflicts with the tombstone and family tradition of Bennington, Vermont — though the VT/NY border confusion is well-documented for this area.</p>
+</div>
+
+<hr class="separator">
+
+<h3>Perviz / Parvis Andrews — Database Records</h3>
+
+<table class="research-table">
+  <thead>
+    <tr>
+      <th style="width:80px;">Year</th>
+      <th style="width:140px;">Record Type</th>
+      <th>Details</th>
+      <th style="width:200px;">Source Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1840</strong></td>
+      <td>US Census</td>
+      <td>"Kerris Andrews" [indexed; likely "Pervis"] — Westfield, Chautauqua Co., NY. Male 30–39, employed in manufacture/trade.</td>
+      <td><a href="https://www.ancestry.com/search/collections/8057/records/2348012" target="_blank">Ancestry: 1840 Census</a></td>
+    </tr>
+    <tr>
+      <td><strong>1843</strong></td>
+      <td>Church Record</td>
+      <td>Adult baptism, Camden Valley Church of the United Brethren, Washington Co., NY. July 30, 1843. (Found during manual research.)</td>
+      <td>washingtoncountyny.gov DocumentCenter</td>
+    </tr>
+    <tr>
+      <td><strong>~1846</strong></td>
+      <td>IN Marriage</td>
+      <td>Parvis Andrews married Julia C. O'Dell; child Cynthia E. noted.</td>
+      <td><a href="https://www.ancestry.com/search/collections/60282/records/8675319" target="_blank">Ancestry: IN Marriages</a></td>
+    </tr>
+    <tr>
+      <td><strong>1850</strong></td>
+      <td>US Census</td>
+      <td>"Parvis Andres" — age 48, born New York, Clothier. Wife Julia (38); George (3); Cynthia E. (1). <strong>Salem, Washington Co., NY.</strong></td>
+      <td><a href="https://www.ancestry.com/search/collections/8054/records/8755133" target="_blank">Ancestry: 1850 Census</a></td>
+    </tr>
+    <tr>
+      <td><strong>~1853</strong></td>
+      <td>Land Patent</td>
+      <td>Land patent in Wisconsin under "Pervis Andrews."</td>
+      <td>Ancestry: US Gen. Land Office Records 1796–1907</td>
+    </tr>
+    <tr>
+      <td><strong>1856</strong></td>
+      <td>Marriage Record</td>
+      <td>Julia C. Andrews married Jonas Fulmer, July 10, 1856, Marshall Co., IN. Book A, p. 105. (Found during manual research.)</td>
+      <td>FamilySearch: Marshall Co. Marriage Records</td>
+    </tr>
+    <tr>
+      <td><strong>1856</strong></td>
+      <td>Death</td>
+      <td>Died <strong>April 11, 1856</strong>, North Liberty, St. Joseph County, Indiana.</td>
+      <td>Ancestry: Find a Grave Index</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>FamilySearch Tree</td>
+      <td>Person ID: <strong>L89S-H9W</strong>. Spouse: Julia C. O'Dell (GL9L-NX1). Children: George W Andrews (LQDH-7L2), Cynthia Ann Andrews (L89S-W1K).</td>
+      <td><a href="https://www.familysearch.org/tree/person/details/L89S-H9W" target="_blank">FamilySearch Tree</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr class="separator">
+
+<h3>Lyman H. Andrews — Database Records</h3>
+
+<table class="research-table">
+  <thead>
+    <tr>
+      <th style="width:80px;">Year</th>
+      <th style="width:140px;">Record Type</th>
+      <th>Details</th>
+      <th style="width:200px;">Source Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1830</strong></td>
+      <td>NY Land Records</td>
+      <td>Lyman H Andrews — 3 land assessment entries, Genesee Co., NY.</td>
+      <td>FamilySearch: NY Land Records 1630–1975</td>
+    </tr>
+    <tr>
+      <td><strong>1837</strong></td>
+      <td>NY Land Records</td>
+      <td>Lyman H Andrews — land in Genesee County again.</td>
+      <td>FamilySearch: NY Land Records 1630–1975</td>
+    </tr>
+    <tr>
+      <td><strong>1838</strong></td>
+      <td>VT Marriage</td>
+      <td>Lyman Andrews married Livvy Tinny, Pownal, Bennington Co., VT, July 23, 1838. <em>Possibly a different Lyman Andrews — see conflicts.</em> (Found during manual research.)</td>
+      <td>FamilySearch: VT Vital Records</td>
+    </tr>
+    <tr>
+      <td><strong>1839</strong></td>
+      <td>Old Settlers Society</td>
+      <td>Lyman H. Andrews, settled Marshall Co. Born Rensselaer Co., NY. (Found during manual research.)</td>
+      <td>McDonald, History of Marshall County (1881), pp. 46–47</td>
+    </tr>
+    <tr>
+      <td><strong>1840</strong></td>
+      <td>US Census</td>
+      <td>Lyman H Andrus — head of household, Marshall Co., Indiana.</td>
+      <td><a href="https://www.familysearch.org/ark:/61903/1:1:XHYP-4Q1" target="_blank">FamilySearch: 1840 Census</a></td>
+    </tr>
+    <tr>
+      <td><strong>1842–44</strong></td>
+      <td>Road Hands</td>
+      <td>Road Supervisor, District 10, Center Twp. Crew includes Austin Fuller and Wm. Yeckley. (Found during manual research.)</td>
+      <td>Marshall Co. Treasurer Records</td>
+    </tr>
+    <tr>
+      <td><strong>1850</strong></td>
+      <td>US Census</td>
+      <td>Lyman H Andrews, age 44, born New York. Wife Mary J (42, NY). Children: Sarah (22), Milton (14), Chas (12), Ellen (8, IN).</td>
+      <td><a href="https://www.familysearch.org/ark:/61903/1:1:MHJR-XGW" target="_blank">FamilySearch: 1850 Census</a></td>
+    </tr>
+    <tr>
+      <td><strong>1860</strong></td>
+      <td>US Census</td>
+      <td>Lyman Andrews, age 54, born NY. Wife Mary J (52). Charles (22); Ellen (17). West Twp., Marshall Co.</td>
+      <td><a href="https://www.familysearch.org/ark:/61903/1:1:M4F5-K1W" target="_blank">FamilySearch: 1860 Census</a></td>
+    </tr>
+    <tr>
+      <td><strong>1870</strong></td>
+      <td>US Census</td>
+      <td>Liman Andrews, age ~62, born New York. West Twp., Marshall Co.</td>
+      <td>FamilySearch: US Census 1870</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>WI Death Records</td>
+      <td>Lyman H. Andrews listed as <strong>father</strong> of Milton Andrews in Wisconsin death records.</td>
+      <td>FamilySearch: WI Death Records 1867–1907</td>
+    </tr>
+    <tr>
+      <td><strong>1913</strong></td>
+      <td>IN Death Cert (Son)</td>
+      <td>Charles R. Andrews death cert names father as Lyman H. Andrews (b. Vermont), mother as Mary Jane Yeakley (b. New York). (Found during manual research.)</td>
+      <td>Indiana State Board of Health</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr class="separator">
+
+<h3>Assessment: Are They Related?</h3>
+
+<p>The database search found <strong>no confirmed family relationship</strong> between Lyman and Perviz in the documentary record. However, the database search also surfaced new geographic data that refines the picture:</p>
+
+<div class="fact-card unproven">
+  <div class="label">Revised Geography</div>
+  <p>Lyman had land in <strong>Genesee County, NY</strong> (western New York, near Buffalo) in the 1830s before moving to Indiana. Perviz was in <strong>Chautauqua County, NY</strong> (also western New York, south of Buffalo) in 1840. These counties are about 60 miles apart — both in western New York, not the eastern VT/NY border area. This is a different geographic cluster than previously assumed and worth investigating.</p>
+  <p>However, Perviz was born in <strong>Bennington, VT</strong> (eastern), was baptized in <strong>Washington County, NY</strong> (eastern) in 1843, and appeared in the 1850 census in <strong>Salem, Washington County, NY</strong> (eastern). His trajectory may have included a stint in western NY (1840) before returning east, then finally moving to Indiana.</p>
+</div>
+
+<h3>New Research Leads from This Data</h3>
+
+<div class="fact-card next-step">
+  <div class="label">Verify the 1850 Salem Census</div>
+  <p>Pull the actual census image from the Ancestry link above. Confirm the household composition, birthplaces, and whether this is truly the same Perviz. If he was in Washington County, NY, in 1850, he moved to Indiana between 1850 and 1856 — a much tighter window than previously assumed.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Check the 1840 Chautauqua County Census</div>
+  <p>"Kerris Andrews" in Westfield, Chautauqua Co. — pull the original image. The 1840 census is pre-name (tick marks only), so verify the age bracket and household composition match Perviz at age ~38.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Examine the FamilySearch Tree</div>
+  <p>Person ID <strong>L89S-H9W</strong> may have sources, notes, or contributor information attached. Log into FamilySearch and examine who created this profile and what documentation they attached. Contact the contributor if possible.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Obtain Milton Andrews' Wisconsin Death Record</div>
+  <p>This record names Lyman H. Andrews as Milton's father. The full death certificate (available from the Wisconsin Historical Society) may also name Milton's mother and Lyman's birthplace, providing additional data points.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Search Genesee County, NY for Andrews Families</div>
+  <p>Lyman had land there in the 1830s. Church records, birth records, and land deeds from 1800–1838 could identify his parents and connect (or disconnect) him from the Bennington County Andrews families.</p>
+</div>
+
+<div class="fact-card next-step">
+  <div class="label">Wisconsin Land Patent</div>
+  <p>A land patent was filed in Wisconsin under "Pervis Andrews" around 1853. This is a federal record available through the Bureau of Land Management / General Land Office. Pull the original — it may list a residence or other identifying information.</p>
 </div>
 
 </div>

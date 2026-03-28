@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Haystack -->
+  <ellipse cx="32" cy="48" rx="26" ry="14" fill="#C4956A"/>
+  <ellipse cx="32" cy="44" rx="24" ry="12" fill="#D4A96A"/>
+  <ellipse cx="32" cy="40" rx="20" ry="10" fill="#DEBB82"/>
+  <!-- Hay strands -->
+  <line x1="18" y1="38" x2="14" y2="50" stroke="#B8892E" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="28" y1="36" x2="24" y2="52" stroke="#B8892E" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="38" y1="35" x2="42" y2="51" stroke="#B8892E" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="46" y1="38" x2="50" y2="49" stroke="#B8892E" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Needle - diagonal, poking out of haystack -->
+  <line x1="22" y1="42" x2="44" y2="8" stroke="#708090" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Needle eye -->
+  <ellipse cx="42.5" cy="11" rx="2" ry="3.5" fill="none" stroke="#708090" stroke-width="1.8" transform="rotate(-30 42.5 11)"/>
+  <!-- Thread through eye -->
+  <path d="M44 8 Q52 4 48 14 Q44 22 50 18" fill="none" stroke="#8B4513" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Needle shine -->
+  <line x1="28" y1="34" x2="32" y2="26" stroke="#A8B8C8" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+</svg>
